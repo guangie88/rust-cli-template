@@ -1,0 +1,2 @@
+log_conf_path = "config/log.toml"
+lock_file_path = "/var/lock/app.lock"
