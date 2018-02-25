@@ -1,0 +1,6 @@
+[package]
+name = "rust-cli-template"
+version = "0.1.0"
+authors = ["Chen Weiguang <chen.weiguang@gmail.com>"]
+
+[dependencies]
