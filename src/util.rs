@@ -100,7 +100,13 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_init_conf() {
-        init_conf().unwrap();
+    fn test_parse_conf() {
+        const CONF: &str = r#"
+            log_conf_path = 'config/log.toml'
+            lock_file_path = '/var/lock/app.lock'
+        "#;
+
+        let file_conf = toml::from_str::<FileConf>(CONF);
+        assert!(file_conf.is_ok());
     }
 }
