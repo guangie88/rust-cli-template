@@ -2,15 +2,15 @@ language: rust
 
 matrix:
   include:
+    - services: docker
+      env:
+        - LINT=true
     - rust: stable
       sudo: false
     - rust: beta
       sudo: false
     - rust: nightly
       sudo: false
-    - services: docker
-      env:
-        - LINT=true
   fast_finish: true
 
 before_script:
