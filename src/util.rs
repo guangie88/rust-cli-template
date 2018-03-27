@@ -3,13 +3,13 @@ extern crate log4rs;
 extern crate simple_logger;
 extern crate toml;
 
+use self::fs2::FileExt;
 use failure::Error;
 use std;
 use std::fs::{File, OpenOptions};
 use std::io::Read;
 use std::path::Path;
 use structopt::StructOpt;
-use self::fs2::FileExt;
 
 type StdResult<T, E> = std::result::Result<T, E>;
 pub type Result<T> = std::result::Result<T, Error>;
@@ -87,9 +87,11 @@ pub fn read_from_file<P: AsRef<Path>>(p: P) -> StdResult<String, AppError> {
 pub fn print_run_status<T>(res: &Result<T>) {
     match *res {
         Ok(_) => info!("Session completed!"),
-        Err(ref e) => {
-            error!("ERROR: {}\n > BACKTRACE: {}", e.cause(), e.backtrace())
-        }
+        Err(ref e) => error!(
+            "ERROR: {}\n > BACKTRACE: {}",
+            e.cause(),
+            e.backtrace()
+        ),
     }
 }
 
@@ -98,7 +100,13 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_init_conf() {
-        init_conf().unwrap();
+    fn test_parse_conf() {
+        const CONF: &str = r#"
+            log_conf_path = 'config/log.toml'
+            lock_file_path = '/var/lock/app.lock'
+        "#;
+
+        let file_conf = toml::from_str::<FileConf>(CONF);
+        assert!(file_conf.is_ok());
     }
 }
