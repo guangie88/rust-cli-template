@@ -1,0 +1,34 @@
+language: rust
+
+matrix:
+  include:
+    - rust: stable
+      sudo: false
+    - rust: beta
+      sudo: false
+    - rust: nightly
+      sudo: false
+    - services: docker
+      env:
+        - LINT=true
+  fast_finish: true
+
+before_script:
+  - |
+    if [ "$LINT" = "true" ]; then
+      docker-compose -f docker-compose.lint-test.yml build
+    else
+      cargo test --no-run --verbose
+    fi
+
+script:
+  - |
+    if [ "$LINT" = "true" ]; then
+      docker-compose -f docker-compose.lint-test.yml run lint-test
+    else
+      cargo test --verbose
+    fi
+
+branches:
+  only:
+    - master
