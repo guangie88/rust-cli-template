@@ -41,7 +41,7 @@ after_success:
   - |
     if [ "$COVERAGE" = "true" ]; then
       docker run --security-opt seccomp=unconfined -v "$PWD:/volume" \
-        xd009642/tarpaulin bash -c "
+        guangie88/ubuntu-cargo-tarpaulin:xenial-stable "
           cargo tarpaulin --out Xml \
           & bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN"
     fi
