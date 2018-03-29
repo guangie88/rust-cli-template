@@ -38,12 +38,14 @@ impl From<std::io::Error> for AppError {
 }
 
 #[derive(StructOpt, Debug)]
-#[structopt(name = "App config",
-            about = "Configuration for Rust HDFS-to-Local")]
+#[structopt(name = "App config", about = "Configuration for Rust HDFS-to-Local")]
 pub struct ArgConf {
-    #[structopt(short = "c", long = "conf",
-                default_value = "config/app.toml",
-                help = "Configuration file path")]
+    #[structopt(
+        short = "c",
+        long = "conf",
+        default_value = "config/app.toml",
+        help = "Configuration file path"
+    )]
     pub conf: String,
 }
 
