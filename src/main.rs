@@ -24,11 +24,7 @@ fn main() {
     let file_conf = init_conf();
 
     if let Err(ref e) = file_conf {
-        eprintln!(
-            "ERROR: {}\n > BACKTRACE: {}",
-            e.as_fail(),
-            e.backtrace()
-        );
+        eprintln!("ERROR: {}\n > BACKTRACE: {}", e.as_fail(), e.backtrace());
     }
 
     let res = file_conf
