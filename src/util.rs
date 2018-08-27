@@ -38,7 +38,9 @@ impl From<std::io::Error> for AppError {
 }
 
 #[derive(StructOpt, Debug)]
-#[structopt(name = "App config", about = "Configuration for Rust HDFS-to-Local")]
+#[structopt(
+    name = "App config", about = "Configuration for Rust HDFS-to-Local"
+)]
 pub struct ArgConf {
     #[structopt(
         short = "c",
@@ -89,11 +91,9 @@ pub fn read_from_file<P: AsRef<Path>>(p: P) -> StdResult<String, AppError> {
 pub fn print_run_status<T>(res: &Result<T>) {
     match *res {
         Ok(_) => info!("Session completed!"),
-        Err(ref e) => error!(
-            "ERROR: {}\n > BACKTRACE: {}",
-            e.cause(),
-            e.backtrace()
-        ),
+        Err(ref e) => {
+            error!("ERROR: {}\n > BACKTRACE: {}", e.as_fail(), e.backtrace())
+        }
     }
 }
 
