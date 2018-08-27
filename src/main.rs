@@ -26,7 +26,7 @@ fn main() {
     if let Err(ref e) = file_conf {
         eprintln!(
             "ERROR: {}\n > BACKTRACE: {}",
-            e.cause(),
+            e.as_fail(),
             e.backtrace()
         );
     }

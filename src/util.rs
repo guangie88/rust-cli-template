@@ -91,7 +91,7 @@ pub fn print_run_status<T>(res: &Result<T>) {
         Ok(_) => info!("Session completed!"),
         Err(ref e) => error!(
             "ERROR: {}\n > BACKTRACE: {}",
-            e.cause(),
+            e.as_fail(),
             e.backtrace()
         ),
     }
